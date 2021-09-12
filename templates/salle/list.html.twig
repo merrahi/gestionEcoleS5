@@ -1,0 +1,81 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+    Salles
+{% endblock %}
+ {% block stylesheets %}
+     {{ encore_entry_link_tags('css/salle/list') }}
+     {{ parent() }}
+ {% endblock %}
+
+{% block body %}
+    <h1 class="my-4">La liste des Salle</h1>
+    {% for message in app.flashes('notice') %}
+        <div class="row" >
+            <div class="errorIcon col-sm-auto">
+                <img height="100px" width="100px" class="img-thumbnail"   src="{{ asset('errors/server_error.png' ) }}" alt="error" />
+            </div>
+            <div class="errorMessage alert alert-success col">
+                {{ message }}
+            </div>
+        </div>
+    {% endfor %}
+    <ul class="list-group create-salle">
+        <li class="list-group-item">
+            <span class="number-salle" ><strong>{{ numberSalle }}</strong></span>
+            <a href="{{ path('salle_create')}}" class="btn btn-primary">
+                <i class="fa fa-plus" aria-hidden="true">
+                    Ajouter un salle</i></a>
+        </li>
+    </ul>
+    <div class="custom-control custom-checkbox">
+        <input type="checkbox" class="custom-control-input" id="defaultChecked2" checked>
+        <label class="custom-control-label" for="defaultChecked2">Default checked</label>
+    </div>
+    <table id="listSalles" class="table table-striped">
+       {# <select id="selectedSalle" class="form-control" >
+            <option value="{{ path('etudiant_all') }}" data-path="{{ path('etudiant_salle',{'gr':'all' }) }}">Tout</option>
+            {% for salle in salles %}
+                <option value="{{ path('etudiant_salle',{'gr':salle.id }) }}" >{{ salle.libelle }}</option>
+            {% endfor %}
+
+        </select>#}
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>#</th>
+            <th></th>
+            <th></th>
+            <th>Numero de la Salle</th>
+            <th>Categorie de la Salle</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for salle in salles %}
+            <tr>
+                <th scope="row">
+                    <span class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input check-salles" id="check-salles {{  salle.id }}" >
+                        <label class="custom-control-label" for="check-salles {{  salle.id }}"></label>
+                    </span>
+                </th>
+                <th scope="row">{{salle.id}}</th>
+                <td><img src="{{ asset('icons/salle.png' ) }} " width="30px" height="30px" class="rounded mx-auto d-block" alt="..."></td>
+                <td>{{salle.numero}}</td>
+                <td>{{salle.libelle}}</td>
+                <td>{{salle.categorie}}</td>
+                <td class="actions">
+                    <a href="{{ path('salle_details',{id:salle.id}) }}" class="btn btn-success"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                    <a href="{{ path('salle_edit',{id:salle.id}) }}"  class="btn btn-primary"><i class="fa fa-edit" aria-hidden="true"></i></a>
+                    <a href="{{ path('salle_delete',{id:salle.id}) }}"  class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i> </a>
+                </td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+    {% block javascripts %}
+        {{ parent() }}
+        {{ encore_entry_script_tags('js/etudiant/list') }}
+    {% endblock %}
+{% endblock %}

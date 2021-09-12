@@ -1,0 +1,10 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <a class="btn btn-default" href="{{ path("note_all") }}">Back to Notes</a>
+<h2 class="page-header">{{note.libelle}}</h2>
+<ul class="list-group">
+    <li class="list-group-item"><img src="{{ asset('icons/note.png' ) }} " width="100px" height="100px" class="rounded mx-auto d-block" alt="..."></li>
+    <li class="list-group-item">Nom:  <h4>{{note.libelle}}</h4> </li>
+</ul>
+{% endblock %}

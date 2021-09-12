@@ -1,0 +1,142 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+    Ajouter un Note
+{% endblock %}
+ {% block stylesheets %}
+     {{ encore_entry_link_tags('css/cours/create') }}
+     {{ parent() }}
+ {% endblock %}
+
+{% block body %}
+    <div class="container">
+
+        <h2 class="page-header">Create Note</h2>
+
+        <div class="card o-hidden border-0 shadow-lg my-5">
+            <div class="card-body p-0">
+                <!-- Nested Row within Card Body -->
+                <div class="row">
+                    <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
+                    <div class="col-lg-7">
+                        <div class="p-5">
+                            {{ form_start(form) }}
+                                <div class="text-center">
+                                    <h1 class="h4 text-gray-900 mb-4">Ajouter une Note</h1>
+                                </div>
+                                <div class="create-note-form">
+                                    <div class="form-group row">
+                                        <div class="col">
+                                            <i class="fa fa-chalkboard-teacher"></i> {{ form_label(form.etudiant) }}
+                                            {{ form_widget(form.etudiant) }}
+
+                                            <small>{{ form_help(form.etudiant) }}</small>
+
+                                            <div class="form-error">
+                                                {{ form_errors(form.etudiant) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col">
+                                            <i class="fa fa-list"></i> {{ form_label(form.moyenne) }}
+                                            {{ form_widget(form.moyenne) }}
+
+                                            <small>{{ form_help(form.moyenne) }}</small>
+
+                                            <div class="form-error">
+                                                {{ form_errors(form.moyenne) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col">
+                                            <i class="fa fa-calendar"></i> {{ form_label(form.bareme) }}
+                                            {{ form_widget(form.bareme) }}
+
+                                            <small>{{ form_help(form.bareme) }}</small>
+
+                                            <div class="form-error">
+                                                {{ form_errors(form.bareme) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col">
+                                            <i class="fa fa-refresh"></i> {{ form_label(form.appreciation) }}
+                                            {{ form_widget(form.appreciation) }}
+
+                                            <small>{{ form_help(form.appreciation) }}</small>
+
+                                            <div class="form-error">
+                                                {{ form_errors(form.appreciation) }}
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                   {# <div class="form-group row">
+                                        <div class="col-sm-6 mb-3 mb-sm-0">
+                                                <i class="fa fa-clock" aria-hidden="true"></i></i>
+                                                {{ form_label(form.bareme) }}
+                                                {{ form_widget(form.bareme) }}
+
+                                                <small>{{ form_help(form.bareme) }}</small>
+
+                                                <div class="form-error">
+                                                    {{ form_errors(form.bareme) }}
+                                                </div>
+                                        </div>
+                                        <div class="col-sm-6">
+                                                <i class="fa fa-clock" aria-hidden="true"></i></i>
+                                                {{ form_label(form.bareme) }}
+                                                {{ form_widget(form.bareme) }}
+
+                                                <small>{{ form_help(form.bareme) }}</small>
+
+                                                <div class="form-error">
+                                                    {{ form_errors(form.bareme) }}
+                                                </div>
+                                        </div>
+                                    </div>#}
+
+                                    <div class="form-group row">
+                                        <div class="col">
+                                            <i class="fa fa-book"></i> {{ form_label(form.module) }}
+                                            {{ form_widget(form.module) }}
+
+                                            <small>{{ form_help(form.module) }}</small>
+
+                                            <div class="form-error">
+                                                {{ form_errors(form.module) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col">
+                                            <i class="fa fa-door-closed"></i> {{ form_label(form.exam) }}
+                                            {{ form_widget(form.exam) }}
+
+                                            <small>{{ form_help(form.exam) }}</small>
+
+                                            <div class="form-error">
+                                                {{ form_errors(form.exam) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col">
+                                            {{ form_widget(form.save) }}
+                                        </div>
+
+                                    </div>
+                                </div>
+                                {{ form_end(form) }}
+                            <hr>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

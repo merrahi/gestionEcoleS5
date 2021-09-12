@@ -1,0 +1,25 @@
+// css/salle/list.scss
+
+
+// import media
+@import "../media-query";
+// all
+ul.create-salle li a {
+  float: right;
+}
+.actions {
+  text-align: right;
+}
+
+#listSalles{
+  text-align: center;
+}
+
+//desktop
+@include desktop-and-below{
+
+}
+// Mobile
+@include mobile-only	{
+
+}

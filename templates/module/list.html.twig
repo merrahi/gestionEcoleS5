@@ -1,0 +1,94 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+    Modules
+{% endblock %}
+ {% block stylesheets %}
+     {{ encore_entry_link_tags('css/module/list') }}
+     {{ parent() }}
+ {% endblock %}
+
+{% block body %}
+    <h1 class="my-4">La liste des Module</h1>
+    {% for message in app.flashes('notice') %}
+        <div class="row" >
+            <div class="errorIcon col-sm-auto">
+                <img height="100px" width="100px" class="img-thumbnail"   src="{{ asset('errors/server_error.png' ) }}" alt="error" />
+            </div>
+            <div class="errorMessage alert alert-success col">
+                {{ message }}
+            </div>
+        </div>
+    {% endfor %}
+    <ul class="list-group create-module">
+        <li class="list-group-item">
+            <span class="number-module" ><strong>{{ numberModule }}</strong></span>
+            <a href="{{ path('module_create')}}" class="btn btn-primary">
+                <i class="fa fa-plus" aria-hidden="true">
+                    Ajouter un module</i></a>
+        </li>
+    </ul>
+    <table id="listModules" class="table table-striped dataTable">
+       {# <select id="selectedModule" class="form-control" >
+            <option value="{{ path('etudiant_all') }}" data-path="{{ path('etudiant_module',{'gr':'all' }) }}">Tout</option>
+            {% for module in modules %}
+                <option value="{{ path('etudiant_module',{'gr':module.id }) }}" >{{ module.libelle }}</option>
+            {% endfor %}
+
+        </select>#}
+        <thead>
+        <tr>
+            <th
+                    class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                    aria-label="Name: activate to sort column ascending"
+                    aria-sort="descending">
+                <i class="fa fa-sort" aria-hidden="true"></i>
+            </th>
+            <th
+                    class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                    aria-label="Name: activate to sort column ascending"
+                    aria-sort="descending">
+                <i class="fa fa-sort" aria-hidden="true"></i>
+            </th>
+            <th
+                    class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                    aria-label="Name: activate to sort column ascending"
+                    aria-sort="descending">
+                Code du Module <i class="fa fa-sort" aria-hidden="true"></i>
+            </th>
+            <th
+                    class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                    aria-label="Name: activate to sort column ascending"
+                    aria-sort="descending">
+                Libelle du Module <i class="fa fa-sort" aria-hidden="true"></i>
+            </th>
+            <th
+                    class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                    aria-label="Name: activate to sort column ascending"
+                    aria-sort="descending">
+                Masse Horaires (H) <i class="fa fa-sort" aria-hidden="true"></i>
+            </th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for module in modules %}
+            <tr> <th scope="row">{{module.id}}</th>
+                <td><img src="{{ asset('icons/module.png' ) }} " width="30px" height="30px" class="rounded mx-auto d-block" alt="..."></td>
+                <td>{{module.code}}</td>
+                <td>{{module.libelle}}</td>
+                <td>{{module.masseHoraires}}</td>
+                <td class="actions">
+                    <a href="{{ path('module_details',{id:module.id}) }}" class="btn btn-success"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                    <a href="{{ path('module_edit',{id:module.id}) }}"  class="btn btn-primary"><i class="fa fa-edit" aria-hidden="true"></i></a>
+                    <a href="{{ path('module_delete',{id:module.id}) }}"  class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i> </a>
+                </td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+    {% block javascripts %}
+        {{ parent() }}
+        {{ encore_entry_script_tags('js/etudiant/list') }}
+    {% endblock %}
+{% endblock %}

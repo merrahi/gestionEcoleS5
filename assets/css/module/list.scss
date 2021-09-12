@@ -1,0 +1,33 @@
+// css/groupe/list.scss
+
+
+// import media
+@import "../media-query";
+// all
+ul.create-module li a {
+  float: right;
+}
+
+// table
+table.dataTable{
+  text-align: center;
+
+}
+table.dataTable thead .sorting{
+  cursor: pointer;
+}
+table.dataTable thead .sorting i.sorting_asc{
+  opacity: .5;
+}
+.actions {
+  text-align: right;
+}
+
+//desktop
+@include desktop-and-below{
+
+}
+// Mobile
+@include mobile-only	{
+
+}

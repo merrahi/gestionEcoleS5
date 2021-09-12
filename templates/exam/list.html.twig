@@ -1,0 +1,137 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+    Exams
+{% endblock %}
+ {% block stylesheets %}
+     {{ encore_entry_link_tags('css/cours/list') }}
+     {{ parent() }}
+ {% endblock %}
+
+{% block body %}
+    <h1 class="my-4">La liste des Exam</h1>
+    {% for message in app.flashes('notice') %}
+        <div class="row" >
+            <div class="errorIcon col-sm-auto">
+                <img height="100px" width="100px" class="img-thumbnail"   src="{{ asset('errors/server_error.png' ) }}" alt="error" />
+            </div>
+            <div class="errorMessage alert alert-success col">
+                {{ message }}
+            </div>
+        </div>
+    {% endfor %}
+    <ul class="list-group create-exam">
+        <li class="list-group-item">
+            <span class="number-exam" ><strong>{{ numberExam }}</strong></span>
+            <a href="{{ path('exam_create')}}" class="btn btn-primary">
+                <i class="fa fa-plus" aria-hidden="true">
+                    Ajouter un exam</i></a>
+        </li>
+    </ul>
+    <div class="custom-control custom-checkbox">
+        <input type="checkbox" class="custom-control-input" id="defaultChecked2" checked>
+        <label class="custom-control-label" for="defaultChecked2">Default checked</label>
+    </div>
+    <table id="listExams" class="table table-striped dataTable">
+       {# <select id="selectedExam" class="form-control" >
+            <option value="{{ path('etudiant_all') }}" data-path="{{ path('etudiant_exam',{'gr':'all' }) }}">Tout</option>
+            {% for exam in exams %}
+                <option value="{{ path('etudiant_exam',{'gr':exam.id }) }}" >{{ exam.libelle }}</option>
+            {% endfor %}
+
+        </select>#}
+        <thead>
+        <tr>
+            <th
+                    class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                    aria-label="Name: activate to sort column ascending"
+                    aria-sort="descending">
+                  <i class="fa fa-sort" aria-hidden="true"></i>
+            </th>
+            <th
+                    class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                    aria-label="Name: activate to sort column ascending"
+                    aria-sort="descending">
+                id <i class="fa fa-sort" aria-hidden="true"></i>
+            </th>
+            <th
+                    class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                    aria-label="Name: activate to sort column ascending"
+                    aria-sort="descending">
+                Type <i class="fa fa-sort" aria-hidden="true"></i>
+            </th>
+            <th
+                    class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                    aria-label="Name: activate to sort column ascending"
+                    aria-sort="descending">
+                Nom <i class="fa fa-sort" aria-hidden="true"></i>
+            </th>
+            <th
+                    class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                    aria-label="Name: activate to sort column ascending"
+                    aria-sort="descending">
+                Date d'examen <i class="fa fa-sort" aria-hidden="true"></i>
+            </th>
+            <th
+                    class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                    aria-label="Name: activate to sort column ascending"
+                    aria-sort="descending">
+                Module <i class="fa fa-sort" aria-hidden="true"></i>
+            </th>
+            <th
+                    class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                    aria-label="Name: activate to sort column ascending"
+                    aria-sort="descending">
+                Salle <i class="fa fa-sort" aria-hidden="true"></i>
+            </th>
+            <th
+                    class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                    aria-label="Name: activate to sort column ascending"
+                    aria-sort="descending">
+                <i class="fa fa-sort" aria-hidden="true"></i>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for exam in exams %}
+            <tr>
+                <td scope="row">
+                    <span class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input check-exams" id="check-exams {{  exam.id }}" >
+                        <label class="custom-control-label" for="check-exams {{  exam.id }}"></label>
+                    </span>
+                </td>
+                <td scope="row">{{exam.id}}</td>
+                <td scope="row">{{exam.typeE|capitalize}}</td>
+                <td>{{exam.nameE}}</td>
+                <td>{{exam.faitLe|date("d/m/Y",'Europe/Paris')}}</td>
+                <td>
+                    <a href="{{ path('module_details',{id:exam.module.id}) }}" class="btn btn-link">
+                        {{exam.module.libelle}}
+                    </a>
+                </td>
+                <td>
+                    <a href="{{ path('salle_details',{id:exam.salle.id}) }}" class="btn btn-link">
+                        {{exam.salle.libelle}}
+                    </a>
+                </td>
+                <td class="actions">
+                    <a href="{{ path('exam_details',{id:exam.id}) }}" class="btn btn-success"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                    <a href="{{ path('exam_edit',{id:exam.id}) }}"  class="btn btn-primary"><i class="fa fa-edit" aria-hidden="true"></i></a>
+                    <a href="{{ path('exam_delete',{id:exam.id}) }}"  class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i> </a>
+                </td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>Holy guacamole!</strong> You should check in on some of those fields below.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {% block javascripts %}
+        {{ encore_entry_script_tags('js/etudiant/list') }}
+        {{ parent() }}
+    {% endblock %}
+{% endblock %}

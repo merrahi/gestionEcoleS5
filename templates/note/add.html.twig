@@ -1,0 +1,227 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+    Notes
+{% endblock %}
+ {% block stylesheets %}
+     {{ encore_entry_link_tags('css/note/add') }}
+     {{ parent() }}
+ {% endblock %}
+
+{% block body %}
+    {{ form_start(form) }}
+    <ul class="tags" data-prototype="{{ form_widget(form.notes.vars.prototype)|e('html_attr') }}">
+        {% for lanote in form.notes %}
+            <li>{{ form_label(form.exam) }}
+                {{ form_widget(lanote.moyenne) }}</li>
+        {% endfor %}
+    </ul>
+
+    {{ form_widget(form.save) }}
+        <h1 class="my-4">La liste des Note</h1>
+        {% for message in app.flashes('notice') %}
+            <div class="row" >
+                <div class="errorIcon col-sm-auto">
+                    <img height="100px" width="100px" class="img-thumbnail"   src="{{ asset('errors/server_error.png' ) }}" alt="error" />
+                </div>
+                <div class="errorMessage alert alert-success col">
+                    {{ message }}
+                </div>
+            </div>
+        {% endfor %}
+        <div class="list-group notes-metadata">
+          <span class="liste-groupe form-group ">
+                Filière
+                    <select id="filiere-notes" name="filiere[id]" class="form-group form-control form-control-lg-4">
+                        {% for filiere in filieres %}
+                            <option data-path="{{ path('groupes_filiere',{'filiere':filiere.id }) }}" value="{{ filiere.id }}" >{{ filiere.libelle }}</option>
+                        {% endfor %}
+                    </select>
+            </span>
+            <div class="row">
+                <div class="col-lg-6">
+                    <span class="liste-groupe form-group ">
+                Groupe
+                    <select id="groupe-notes" name="cours[periodic]" class="form-group form-control form-control-lg-4">
+                        {% for groupe in groupes %}
+                            <option data-path="{{ path('modules_groupe',{'groupe':groupe.id }) }}" value="{{ groupe.id }}" >{{ groupe.libelle }}</option>
+                        {% endfor %}
+                    </select>
+            </span>
+                </div>
+                <div class="col-lg-6">
+                    <span class="liste-groupe form-group ">
+                Module
+                    <select id="module-notes" name="cours[periodic]" class="form-group form-control form-control-lg-4">
+                        {% for module in modules %}
+                            <option data-path="cc" value="{{ module.id }}" >{{ module.libelle }}</option>
+                        {% endfor %}
+                    </select>
+            </span>
+                </div>
+            </div>
+
+            <span class="liste-groupe form-group ">
+                Exam
+                <div class="exam" >
+
+                    <ul class="list-group" id="exam-notes">
+                    {% for key,exam in exams %}
+                        {% set active = loop.first ? 'active': '' %}
+
+                        {% if key == 0  %}
+                            {{ dump(key) }}
+                            {% set  selected_exam = exam.id %}
+                        {% endif %}
+
+                        <li class="list-group-item {{ active }}" data-id="{{ exam.id }}">{{ exam.typeE }} {{ exam.nameE }} {{ exam.faitLe|date('d/m/Y') }}</li>
+                    {% endfor %}
+                        {#{% set  selected_exam = 85 %}#}
+
+                    </ul>
+
+                </div>
+
+            </span>
+            <span class="add-note">
+                <a href="{{ path('note_create')}}" class="btn btn-primary">
+                    <i class="fa fa-plus" aria-hidden="true">
+                        Ajouter une note</i></a>
+            </span>
+            <span class="number-note" ><strong>{{ numberNote }}</strong></span>
+        </div>
+        <div class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input" id="defaultChecked2" checked>
+            <label class="custom-control-label" for="defaultChecked2">Default checked</label>
+        </div>
+        <table id="listNotes" class="table table-striped dataTable">
+            {# <select id="selectedNote" class="form-control" >
+                 <option value="{{ path('etudiant_all') }}" data-path="{{ path('etudiant_note',{'gr':'all' }) }}">Tout</option>
+                 {% for note in notes %}
+                     <option value="{{ path('etudiant_note',{'gr':note.id }) }}" >{{ note.libelle }}</option>
+                 {% endfor %}
+
+             </select>#}
+            <thead>
+            <tr>
+                <th
+                        class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                        aria-label="Name: activate to sort column ascending"
+                        aria-sort="descending">
+                    <i class="fa fa-sort" aria-hidden="true"></i>
+                </th>
+                <th
+                        class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                        aria-label="Name: activate to sort column ascending"
+                        aria-sort="descending">
+                    id<i class="fa fa-sort" aria-hidden="true"></i>
+                </th>
+                <th
+                        class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                        aria-label="Name: activate to sort column ascending"
+                        aria-sort="descending">
+                    Nom <i class="fa fa-sort" aria-hidden="true"></i>
+                </th>
+                <th
+                        class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                        aria-label="Name: activate to sort column ascending"
+                        aria-sort="descending">
+                    Prénom <i class="fa fa-sort" aria-hidden="true"></i>
+                </th>
+                <th
+                        class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                        aria-label="Name: activate to sort column ascending"
+                        aria-sort="descending">
+                    Note <i class="fa fa-sort" aria-hidden="true"></i>
+                </th>
+                <th
+                        class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                        aria-label="Name: activate to sort column ascending"
+                        aria-sort="descending">
+                    appréciation  <i class="fa fa-sort" aria-hidden="true"></i>
+                </th>
+                <th
+                        class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                        aria-label="Name: activate to sort column ascending"
+                        aria-sort="descending">
+                </th>
+            </tr>
+            </thead>
+            <tfoot>
+            <tr>
+                <th colspan="7" class="notes-actions">
+                <span class="notes-save">
+                    <button type="submit" id="note_save" name="note[save]" class="btn btn-primary btn-user btn-block">Save</button>
+                    {#<a href="{{ path('note_add')}}" class="btn btn-info">
+                    <i class="fa fa-plus" aria-hidden="true">
+                        Sauvegarder</i></a>#}
+                </span>
+                    <span class="notes-validate">
+                    <a href="{{ path('note_create')}}" class="btn btn-success">
+                    <i class="fa fa-plus" aria-hidden="true">
+                        Valider</i></a>
+                </span>
+                </th>
+            </tr>
+            </tfoot>
+            <tbody>
+            {% for key,etudiant in groupes[0].etudiants %}
+                <input type="hidden" id="notes_add_notes_{{ key }}_etudiant" name="notes_add[notes][{{ key }}][etudiant]"  value="{{etudiant.id}}" class="form-control mb-2 mr-sm-2 mb-sm-0" />
+                <input type="hidden" id="notes_add_notes_{{ key }}_exam" name="notes_add[notes][{{ key }}][exam]"  value="{{exams[0].id}}"  />
+                <input type="hidden" id="notes_add_notes_{{ key }}_module" name="notes_add[notes][{{ key }}][module]"  value="{{modules[0].id}}"  />
+                <input type="hidden" id="notes_add_notes_{{ key }}_module" name="notes_add[notes][{{ key }}][module]"  value="{{modules[0].id}}"  />
+                <input type="hidden" id="notes_add_notes_{{ key }}_bareme" name="notes_add[notes][{{ key }}][bareme]"  value="20"  />
+                <tr>
+                    <td scope="row">
+                    <span class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input check-etudiants" id="check-etudiants {{  etudiant.id }}" >
+                        <label class="custom-control-label" for=cours"check-etudiants {{  etudiant.id }}"></label>
+                    </span>
+                    </td>
+                    <td scope="row">
+                        <input type="hidden" id="notes_add_notes_{{ key }}_etudiant" name="notes_add[notes][{{ key }}][etudiant]"  value="{{etudiant.id}}" class="form-control mb-2 mr-sm-2 mb-sm-0" />
+                        <input type="hidden" id="notes_add_notes_{{ key }}_exam" name="notes_add[notes][{{ key }}][exam]"  value="{{exams[0].id}}"  />
+                        <input type="hidden" id="notes_add_notes_{{ key }}_module" name="notes_add[notes][{{ key }}][module]"  value="{{modules[0].id}}"  />
+                        <input type="hidden" id="notes_add_notes_{{ key }}_module" name="notes_add[notes][{{ key }}][module]"  value="{{modules[0].id}}"  />
+
+                    </td>
+                    <td scope="row">{{etudiant.lastName|capitalize}}</td>
+                    <td scope="row">{{etudiant.firstName}}</td>
+                    <td>
+                        <input type="text" id="notes_add_notes_{{ key }}_moyenne" name="notes_add[notes][{{ key }}][moyenne]"  value="10.00" required="required" class="form-control mb-2 mr-sm-2 mb-sm-0" />
+                    </td>
+                    <td>
+                        <select id="notes_add_notes_{{ key }}_appreciation" name="notes_add[notes][{{ key }}][appreciation]" class="custom-select form-control-sm mb-2 mr-sm-2 mb-sm-0">
+                            <option value="0" selected>Félicitations !</option>
+                            <option value="1" >Très bien !</option>
+                            <option value="2" >mensuel</option>
+                            <option value="3" >Bien !</option>
+                            <option value="4" >Assez bien</option>
+                            <option value="5" selected>Passable</option>
+                            <option value="6" >Des difficultés</option>
+                            <option value="7" >Insuffisant</option>
+                            <option value="8" >Très insuffisant</option>
+                        </select>
+                    </td>
+                    <td class="actions">
+                        <a href="{{ path('etudiant_details',{id:etudiant.id}) }}" class="btn btn-success"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                        <a href="{{ path('etudiant_edit',{id:etudiant.id}) }}"  class="btn btn-primary"><i class="fa fa-edit" aria-hidden="true"></i></a>
+                        <a href="{{ path('etudiant_delete',{id:etudiant.id}) }}"  class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                    </td>
+                </tr>
+            {% endfor %}
+
+            </tbody>
+        </table>
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>Holy guacamole!</strong> You should check in on some of those fields below.
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    {{ form_end(form) }}
+
+    {% block javascripts %}
+        {{ encore_entry_script_tags('note') }}
+        {{ parent() }}
+    {% endblock %}
+{% endblock %}

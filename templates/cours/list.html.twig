@@ -1,0 +1,163 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+    Courss
+{% endblock %}
+ {% block stylesheets %}
+     {{ encore_entry_link_tags('css/cours/list') }}
+     {{ parent() }}
+ {% endblock %}
+
+{% block body %}
+    <h1 class="my-4">La liste des Cours</h1>
+    {% for message in app.flashes('notice') %}
+        <div class="row" >
+            <div class="errorIcon col-sm-auto">
+                <img height="100px" width="100px" class="img-thumbnail"   src="{{ asset('errors/server_error.png' ) }}" alt="error" />
+            </div>
+            <div class="errorMessage alert alert-success col">
+                {{ message }}
+            </div>
+        </div>
+    {% endfor %}
+    <ul class="list-group create-cours">
+        <li class="list-group-item">
+            <span class="number-cours" ><strong>{{ numberCours }}</strong></span>
+            <a href="{{ path('cours_create')}}" class="btn btn-primary">
+                <i class="fa fa-plus" aria-hidden="true">
+                    Ajouter un cours</i></a>
+        </li>
+    </ul>
+    <div class="custom-control custom-checkbox">
+        <input type="checkbox" class="custom-control-input" id="defaultChecked2" checked>
+        <label class="custom-control-label" for="defaultChecked2">Default checked</label>
+    </div>
+    <table id="listCourss" class="table table-striped dataTable">
+       {# <select id="selectedCours" class="form-control" >
+            <option value="{{ path('etudiant_all') }}" data-path="{{ path('etudiant_cours',{'gr':'all' }) }}">Tout</option>
+            {% for cours in courss %}
+                <option value="{{ path('etudiant_cours',{'gr':cours.id }) }}" >{{ cours.libelle }}</option>
+            {% endfor %}
+
+        </select>#}
+        <thead>
+        <tr>
+            <th
+                    class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                    aria-label="Name: activate to sort column ascending"
+                    aria-sort="descending">
+                <i class="fa fa-sort" aria-hidden="true"></i>
+            </th>
+            <th
+                    class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                    aria-label="Name: activate to sort column ascending"
+                    aria-sort="descending">
+                id <i class="fa fa-sort" aria-hidden="true"></i>
+            </th>
+            <th
+                    class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                    aria-label="Name: activate to sort column ascending"
+                    aria-sort="descending">
+                Période <i class="fa fa-sort" aria-hidden="true"></i>
+            </th>
+            <th
+                    class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                    aria-label="Name: activate to sort column ascending"
+                    aria-sort="descending">
+                Icons <i class="fa fa-sort" aria-hidden="true"></i>
+            </th>
+            <th
+                    class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                    aria-label="Name: activate to sort column ascending"
+                    aria-sort="descending">
+                Description <i class="fa fa-sort" aria-hidden="true"></i>
+            </th>
+            <th
+                    class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                    aria-label="Name: activate to sort column ascending"
+                    aria-sort="descending">
+                Date de la Séance <i class="fa fa-sort" aria-hidden="true"></i>
+            </th>
+            <th
+                    class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                    aria-label="Name: activate to sort column ascending"
+                    aria-sort="descending">
+                Debut <i class="fa fa-sort" aria-hidden="true"></i>
+            </th>
+            <th
+                    class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                    aria-label="Name: activate to sort column ascending"
+                    aria-sort="descending">
+                Fin <i class="fa fa-sort" aria-hidden="true"></i>
+            </th>
+            <th
+                    class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                    aria-label="Name: activate to sort column ascending"
+                    aria-sort="descending">
+                Professeur <i class="fa fa-sort" aria-hidden="true"></i>
+            </th>
+            <th
+                    class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                    aria-label="Name: activate to sort column ascending"
+                    aria-sort="descending">
+                Module <i class="fa fa-sort" aria-hidden="true"></i>
+            </th>
+            <th
+                    class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                    aria-label="Name: activate to sort column ascending"
+                    aria-sort="descending">
+                Salle <i class="fa fa-sort" aria-hidden="true"></i>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for cours in courss %}
+            <tr>
+                <th scope="row">
+                    <span class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input check-courss" id="check-courss {{  cours.id }}" >
+                        <label class="custom-control-label" for="check-courss {{  cours.id }}"></label>
+                    </span>
+                </th>
+                <th scope="row">{{cours.id}}</th>
+                <th scope="row">{{cours.periodic|capitalize}}</th>
+                <td><img src="{{ asset('icons/cours.png' ) }} " width="30px" height="30px" class="rounded mx-auto d-block" alt="..."></td>
+                <td>{{cours.intro}}</td>
+               <td>{{cours.faitLe|date("d/m/Y",'Europe/Paris')}}</td>
+                <td>{{cours.startAt|date("H:i")}}</td>
+                <td>{{cours.endAt|date("H:i",'Europe/Paris')}}</td>
+                <td>
+                    <a href="{{ path('professeur_details',{id:cours.professeur.id}) }}" class="btn btn-link">
+                        {{cours.professeur.lastName|upper}} {{cours.professeur.firstName}}
+                    </a>
+                </td>
+                <td>
+                    <a href="{{ path('module_details',{id:cours.module.id}) }}" class="btn btn-link">
+                        {{cours.module.libelle}}
+                    </a>
+                </td>
+                <td>
+                    <a href="{{ path('salle_details',{id:cours.salle.id}) }}" class="btn btn-link">
+                        {{cours.salle.libelle}}
+                    </a>
+                </td>
+                <td class="actions">
+                    <a href="{{ path('cours_details',{id:cours.id}) }}" class="btn btn-success"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                    <a href="{{ path('cours_edit',{id:cours.id}) }}"  class="btn btn-primary"><i class="fa fa-edit" aria-hidden="true"></i></a>
+                    <a href="{{ path('cours_delete',{id:cours.id}) }}"  class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i> </a>
+                </td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>Holy guacamole!</strong> You should check in on some of those fields below.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {% block javascripts %}
+        {{ encore_entry_script_tags('js/etudiant/list') }}
+        {{ parent() }}
+    {% endblock %}
+{% endblock %}

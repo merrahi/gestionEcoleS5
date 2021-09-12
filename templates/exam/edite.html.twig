@@ -1,0 +1,140 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+    Ajouter un Exam
+{% endblock %}
+ {% block stylesheets %}
+     {{ encore_entry_link_tags('css/exam/create') }}
+     {{ parent() }}
+ {% endblock %}
+
+{% block body %}
+    <div class="container">
+
+        <h2 class="page-header">Create Exam</h2>
+
+        <div class="card o-hidden border-0 shadow-lg my-5">
+            <div class="card-body p-0">
+                <!-- Nested Row within Card Body -->
+                <div class="row">
+                    <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
+                    <div class="col-lg-7">
+                        <div class="p-5">
+                            {{ form_start(form) }}
+                            <div class="text-center">
+                                <h1 class="h4 text-gray-900 mb-4">Créer un Exam</h1>
+                            </div>
+                            <div class="create-exam-form">
+                                <div class="form-group row">
+                                    <div class="col">
+                                        <i class="fa fa-refresh"></i> {{ form_label(form.periodic) }}
+                                        {{ form_widget(form.periodic) }}
+
+                                        <small>{{ form_help(form.periodic) }}</small>
+
+                                        <div class="form-error">
+                                            {{ form_errors(form.periodic) }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col">
+                                        <i class="fa fa-list"></i> {{ form_label(form.intro) }}
+                                        {{ form_widget(form.intro) }}
+
+                                        <small>{{ form_help(form.intro) }}</small>
+
+                                        <div class="form-error">
+                                            {{ form_errors(form.intro) }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col">
+                                        <i class="fa fa-calendar"></i> {{ form_label(form.fait_le) }}
+                                        {{ form_widget(form.fait_le) }}
+
+                                        <small>{{ form_help(form.fait_le) }}</small>
+
+                                        <div class="form-error">
+                                            {{ form_errors(form.fait_le) }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <i class="fa fa-clock" aria-hidden="true"></i></i>
+                                        {{ form_label(form.start_at) }}
+                                        {{ form_widget(form.start_at) }}
+
+                                        <small>{{ form_help(form.start_at) }}</small>
+
+                                        <div class="form-error">
+                                            {{ form_errors(form.start_at) }}
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <i class="fa fa-clock" aria-hidden="true"></i></i>
+                                        {{ form_label(form.end_at) }}
+                                        {{ form_widget(form.end_at) }}
+
+                                        <small>{{ form_help(form.end_at) }}</small>
+
+                                        <div class="form-error">
+                                            {{ form_errors(form.end_at) }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col">
+                                        <i class="fa fa-chalkboard-teacher"></i> {{ form_label(form.professeur) }}
+                                        {{ form_widget(form.professeur) }}
+
+                                        <small>{{ form_help(form.professeur) }}</small>
+
+                                        <div class="form-error">
+                                            {{ form_errors(form.professeur) }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col">
+                                        <i class="fa fa-book"></i> {{ form_label(form.module) }}
+                                        {{ form_widget(form.module) }}
+
+                                        <small>{{ form_help(form.module) }}</small>
+
+                                        <div class="form-error">
+                                            {{ form_errors(form.module) }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col">
+                                        <i class="fa fa-door-closed"></i> {{ form_label(form.salle) }}
+                                        {{ form_widget(form.salle) }}
+
+                                        <small>{{ form_help(form.salle) }}</small>
+
+                                        <div class="form-error">
+                                            {{ form_errors(form.salle) }}
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col">
+                                        {{ form_widget(form.save) }}
+                                    </div>
+
+                                </div>
+                            </div>
+                            {{ form_end(form) }}
+                            <hr>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

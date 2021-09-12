@@ -1,0 +1,80 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+    Groupes
+{% endblock %}
+ {% block stylesheets %}
+     {{ encore_entry_link_tags('css/groupe/list') }}
+     {{ parent() }}
+ {% endblock %}
+
+{% block body %}
+    <h1 class="my-4">La liste des Groupe</h1>
+    {% for message in app.flashes('notice') %}
+        <div class="row" >
+            <div class="errorIcon col-sm-auto">
+                <img height="100px" width="100px" class="img-thumbnail"   src="{{ asset('errors/server_error.png' ) }}" alt="error" />
+            </div>
+            <div class="errorMessage alert alert-success col">
+                {{ message }}
+            </div>
+        </div>
+    {% endfor %}
+    <ul class="list-group create-groupe">
+        <li class="list-group-item">
+            <span class="number-groupe" ><strong>{{ numberGroupe }}</strong></span>
+            <a href="{{ path('groupe_create')}}" class="btn btn-primary">
+                <i class="fa fa-plus" aria-hidden="true">
+                    Ajouter un groupe</i></a>
+        </li>
+    </ul>
+    <table id="listGroupes" class="table table-striped dataTable">
+       {# <select id="selectedGroupe" class="form-control" >
+            <option value="{{ path('etudiant_all') }}" data-path="{{ path('etudiant_groupe',{'gr':'all' }) }}">Tout</option>
+            {% for groupe in groupes %}
+                <option value="{{ path('etudiant_groupe',{'gr':groupe.id }) }}" >{{ groupe.libelle }}</option>
+            {% endfor %}
+
+        </select>#}
+        <thead>
+        <tr>
+            <th
+                    class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                    aria-label="Name: activate to sort column ascending"
+                    aria-sort="descending">
+                <i class="fa fa-sort" aria-hidden="true"></i>
+            </th>
+            <th
+                    class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                    aria-label="Name: activate to sort column ascending"
+                    aria-sort="descending">
+                <i class="fa fa-sort" aria-hidden="true"></i>
+            </th>
+            <th
+                    class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                    aria-label="Name: activate to sort column ascending"
+                    aria-sort="descending">
+                Libelle du Groupe <i class="fa fa-sort" aria-hidden="true"></i>
+            </th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for groupe in groupes %}
+            <tr> <th scope="row">{{groupe.id}}</th>
+                <td><img src="{{ asset('icons/groupe.png' ) }} " width="30px" height="30px" class="rounded mx-auto d-block" alt="..."></td>
+                <td>{{groupe.libelle}}</td>
+                <td class="actions">
+                    <a href="{{ path('groupe_details',{id:groupe.id}) }}" class="btn btn-success"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                    <a href="{{ path('groupe_edit',{id:groupe.id}) }}"  class="btn btn-primary"><i class="fa fa-edit" aria-hidden="true"></i></a>
+                    <a href="{{ path('groupe_delete',{id:groupe.id}) }}"  class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i> </a>
+                </td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+    {% block javascripts %}
+        {{ parent() }}
+        {{ encore_entry_script_tags('js/etudiant/list') }}
+    {% endblock %}
+{% endblock %}

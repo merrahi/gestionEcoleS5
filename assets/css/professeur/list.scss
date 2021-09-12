@@ -1,0 +1,36 @@
+// css/professeur/list.scss
+
+
+// import media
+@import "../media-query";
+// all
+ul.create-professeur li a {
+  float: right;
+}
+.actions {
+  text-align: right;
+}
+// table
+table.dataTable{
+  text-align: center;
+
+}
+table.dataTable thead .sorting{
+  cursor: pointer;
+}
+table.dataTable thead .sorting i.sorting_asc{
+  opacity: .5;
+}
+/*table.dataTable thead .sorting:before, table.dataTable thead .sorting_asc:before, table.dataTable thead .sorting_desc:before, table.dataTable thead .sorting_asc_disabled:before, table.dataTable thead .sorting_desc_disabled:before {
+  right: 1em;
+  content: "\2191";
+}*/
+
+//desktop
+@include desktop-and-below{
+
+}
+// Mobile
+@include mobile-only	{
+
+}

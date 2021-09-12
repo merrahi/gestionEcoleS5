@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+    Etudiants
+{% endblock %}
+ {% block stylesheets %}
+     {{ parent() }}
+ {% endblock %}
+
+{% block body %}
+    <h1 class="my-4">La liste des etudiants</h1>
+    {% for message in app.flashes('notice') %}
+        <div class="row" >
+            <div class="errorIcon col-sm-auto">
+                <img height="100px" width="100px" class="img-thumbnail"   src="{{ asset('errors/server_error.png' ) }}" alt="error" />
+            </div>
+            <div class="errorMessage alert alert-success col">
+                {{ message }}
+            </div>
+        </div>
+    {% endfor %}
+    <table id="listEtudiants" class="table table-striped">
+        <select id="selectedGroupe" class="form-control" >
+            <option value="{{ path('etudiant_all') }}" data-path="{{ path('etudiant_groupe',{'gr':'all' }) }}">Tout</option>
+            {% for groupe in groupes %}
+                <option value="{{ path('etudiant_groupe',{'gr':groupe.id }) }}" >{{ groupe.libelle }}</option>
+            {% endfor %}
+
+        </select>
+        <thead>
+        <tr> <th>#</th>
+            <th></th>
+            <th>Prenom</th>
+            <th>Nom</th>
+            <th>Date de Naissance</th> </tr>
+        </thead>
+        <tbody>
+        {% for etudiant in etudiants %}
+            <tr> <th scope="row">{{etudiant.id}}</th>
+                <td><img src="{{ asset('icons/personne-avatar.png' ) }} " width="30px" height="30px" class="rounded mx-auto d-block" alt="..."></td>
+                <td>{{etudiant.firstName}}</td>
+                <td>{{etudiant.lastName}}</td>
+                <td>{{etudiant.birthDay|date("m/d/Y") }}</td>
+                <td>
+                    <a href="{{ path('etudiant_details',{id:etudiant.id}) }}" class="btn btn-success">View</a>
+                    <a href="{{ path('etudiant_edit',{id:etudiant.id}) }}"  class="btn btn-default">edit</a>
+                    <a href="{{ path('etudiant_delete',{id:etudiant.id}) }}"  class="btn btn-danger">delete</a>
+                </td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+    {% block javascripts %}
+        {{ parent() }}
+        {{ encore_entry_script_tags('js/etudiant/list') }}
+    {% endblock %}
+{% endblock %}

@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+    Professeurs
+{% endblock %}
+ {% block stylesheets %}
+     {{ encore_entry_link_tags('css/professeur/list') }}
+     {{ parent() }}
+ {% endblock %}
+
+{% block body %}
+    <h1 class="my-4">La liste des professeur</h1>
+    {% for message in app.flashes('notice') %}
+        <div class="row" >
+            <div class="errorIcon col-sm-auto">
+                <img height="100px" width="100px" class="img-thumbnail"   src="{{ asset('errors/server_error.png' ) }}" alt="error" />
+            </div>
+            <div class="errorMessage alert alert-success col">
+                {{ message }}
+            </div>
+        </div>
+    {% endfor %}
+    <ul class="list-group create-professeur">
+        <li class="list-group-item">
+            <span class="number-professeur" ><strong>{{ numberProfesseur }}</strong></span>
+            <a href="{{ path('professeur_create')}}" class="btn btn-primary">
+                <i class="fa fa-plus" aria-hidden="true">
+                    Ajouter un professeur</i></a>
+        </li>
+    </ul>
+    <table id="listProfesseurs" class="table table-striped dataTable">
+       {# <select id="selectedProfesseur" class="form-control" >
+            <option value="{{ path('etudiant_all') }}" data-path="{{ path('etudiant_professeur',{'gr':'all' }) }}">Tout</option>
+            {% for professeur in professeurs %}
+                <option value="{{ path('etudiant_professeur',{'gr':professeur.id }) }}" >{{ professeur.libelle }}</option>
+            {% endfor %}
+
+        </select>#}
+        <thead>
+        <tr>
+            <th>#</th>
+            <th></th>
+            <th
+                    class="sorting" tabindex="0" aria-controls="dataTable" rowspan="1" colspan="1"
+                    aria-label="Name: activate to sort column ascending"
+                    aria-sort="descending">
+                Libelle du Professeur <i class="fa fa-sort" aria-hidden="true"></i></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for professeur in professeurs %}
+            <tr> <th scope="row">{{professeur.id}}</th>
+                <td><img src="{{ asset('icons/professeur.png' ) }} " width="30px" height="30px" class="rounded mx-auto d-block" alt="..."></td>
+                <td>{{professeur.firstName}}</td>
+                <td>{{professeur.lastName}}</td>
+                <td>{{professeur.birthDay|date("m/d/Y") }}</td>
+                <td class="actions">
+                    <a href="{{ path('professeur_details',{id:professeur.id}) }}" class="btn btn-success"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                    <a href="{{ path('professeur_edit',{id:professeur.id}) }}"  class="btn btn-primary"><i class="fa fa-edit" aria-hidden="true"></i></a>
+                    <a href="{{ path('professeur_delete',{id:professeur.id}) }}"  class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i> </a>
+                </td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+    {% block javascripts %}
+        {{ parent() }}
+        {{ encore_entry_script_tags('js/professeur/list') }}
+    {% endblock %}
+{% endblock %}

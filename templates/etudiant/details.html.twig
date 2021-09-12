@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <a class="btn btn-default" href="{{ path("etudiant_all") }}">Back to Stagiaires</a>
+<h2 class="page-header">{{etudiant.lastName}}</h2>
+<ul class="list-group">
+    <li class="list-group-item"><img src="{{ asset('icons/personne-avatar.png' ) }} " width="100px" height="100px" class="rounded mx-auto d-block" alt="..."></li>
+    <li class="list-group-item">Nom:  <h4>{{etudiant.firstName}}</h4> </li>
+    <li class="list-group-item">Prénom :<h4>{{etudiant.lastName}}</h4></li>
+    <li class="list-group-item">Date de Naissance: <h4>{{etudiant.birthDay|date('d-m-Y')}}</h4></li>
+</ul>
+{% endblock %}

@@ -1,0 +1,51 @@
+// css/nite/list.scss
+
+
+// import media
+@import "../media-query";
+//import
+// all
+ul.create-cours li a {
+  float: right;
+}
+.actions {
+  text-align: right;
+}
+.actions a{
+  padding: 0.15rem 0.38rem;
+}
+// table
+table.dataTable{
+  text-align: center;
+
+}
+table.dataTable thead .sorting{
+  cursor: pointer;
+}
+
+table.dataTable thead .sorting i.sorting_asc{
+  opacity: .5;
+}
+table.dataTable th, table.dataTable td{
+  padding: 2px;
+  vertical-align: middle;
+
+}
+
+.alert{
+  position: sticky !important;
+  bottom: 0 !important;
+}
+// liste des exams
+ul#exam-notes  li{
+  cursor: pointer;
+}
+
+//desktop
+@include desktop-and-below{
+
+}
+// Mobile
+@include mobile-only	{
+
+}
